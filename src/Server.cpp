@@ -217,7 +217,7 @@ std::shared_ptr<Server> TheServer = nullptr;
 //     Retrieve this value using the `getAdvertisingShortName()` method.
 //
 Server::Server(const std::string &serviceName, const std::string &advertisingName, const std::string &advertisingShortName, 
-	GGKServerDataGetter getter, GGKServerDataSetter setter)
+	GGKServerInitializer initializer, GGKServerDataGetter getter, GGKServerDataSetter setter)
 {
 	// Save our names
 	this->serviceName = serviceName;
@@ -244,9 +244,13 @@ Server::Server(const std::string &serviceName, const std::string &advertisingNam
 	// Create the root D-Bus object and push it into the list
 	objects.push_back(DBusObject(DBusObjectPath() + "com" + getServiceName()));
 
+	initializer(objects.back());
+
 	// We're going to build off of this object, so we need to get a reference to the instance of the object as it resides in the
 	// list (and not the object that would be added to the list.)
-	objects.back()
+	//objects.back()
+
+	/*
 
 	// Service: Device Information (0x180A)
 	//
@@ -531,6 +535,8 @@ Server::Server(const std::string &serviceName, const std::string &advertisingNam
 
 		.gattCharacteristicEnd()
 	.gattServiceEnd(); // << -- NOTE THE SEMICOLON
+
+	*/
 
 	//  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
 	//                                                ____ _____ ___  _____
